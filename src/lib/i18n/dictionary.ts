@@ -1,0 +1,108 @@
+import type { Locale } from './locales';
+
+/**
+ * Central dictionary for all UI copy.
+ * Add new keys here first, then translate in both locales.
+ */
+export const dictionary = {
+	nav: {
+		about: { es: 'Sobre mí', en: 'About' },
+		stack: { es: 'Stack', en: 'Stack' },
+		projects: { es: 'Proyectos', en: 'Projects' },
+		contact: { es: 'Contacto', en: 'Contact' }
+	},
+	toggle: {
+		es: { es: 'Español', en: 'Español' },
+		en: { es: 'English', en: 'English' }
+	},
+	hero: {
+		greeting: { es: 'Hola, soy', en: 'Hi, I\'m' },
+		name: { es: 'Pablo Soler', en: 'Pablo Soler' },
+		role: { es: 'Fullstack Developer', en: 'Fullstack Developer' },
+		tagline: {
+			es: 'Construyo productos del servidor a la pantalla.',
+			en: 'Building products from server to screen.'
+		},
+		ctaProjects: { es: 'Ver mis proyectos', en: 'See my projects' },
+		ctaContact: { es: 'Contáctame', en: 'Get in touch' }
+	},
+	about: {
+		title: { es: 'Sobre mí', en: 'About me' },
+		text: {
+			es: 'Desarrollador fullstack autodidacta con la costumbre de ir hasta el fondo. Construyo con JavaScript y TypeScript a lo largo de todo el stack, automatizo lo repetitivo con Python y he bajado a bajo nivel con C++ en frameworks de MMOs como TrinityCore. Ese recorrido me da una visión completa del viaje: del servidor que lo corre a la interfaz que la gente usa. Un CMS de foro que construí hoy está en producción, dando servicio a una comunidad activa.',
+			en: 'Self-taught fullstack developer with a habit of going deep. I build with JavaScript and TypeScript across the stack, automate the tedious with Python, and have gone low-level with C++ in MMO frameworks like TrinityCore. That range gives me a complete view of the journey: from the server it runs on to the interface people use. A forum CMS I built is in production today, serving an active community.'
+		},
+		education: { es: 'Formación', en: 'Education' },
+		educationText: {
+			es: 'Autodidacta y en Platzi, la plataforma de educación online.',
+			en: 'Self-taught and on Platzi, the online education platform.'
+		},
+		languages: { es: 'Idiomas', en: 'Languages' },
+		langES: { es: 'Español (nativo)', en: 'Spanish (native)' },
+		langEN: { es: 'Inglés', en: 'English' }
+	},
+	stack: {
+		title: { es: 'Stack técnico', en: 'Tech stack' },
+		subtitle: {
+			es: 'Tecnologías con las que construyo, de punta a punta.',
+			en: 'Technologies I build with, end to end.'
+		},
+		categories: {
+			languages: { es: 'Lenguajes', en: 'Languages' },
+			frontend: { es: 'Frontend', en: 'Frontend' },
+			backend: { es: 'Backend', en: 'Backend' },
+			devops: { es: 'Servidores y DevOps', en: 'Servers & DevOps' },
+			ai: { es: 'Inteligencia artificial', en: 'AI' }
+		},
+		items: {
+			typescript: { es: 'TypeScript / JavaScript', en: 'TypeScript / JavaScript' },
+			cpp: { es: 'C++', en: 'C++' },
+			go: { es: 'Go', en: 'Go' },
+			python: { es: 'Python', en: 'Python' },
+			svelte: { es: 'Svelte / SvelteKit', en: 'Svelte / SvelteKit' },
+			htmlcss: { es: 'HTML / CSS', en: 'HTML / CSS' },
+			node: { es: 'Node.js', en: 'Node.js' },
+			linux: { es: 'Linux y administración de servidores', en: 'Linux & server administration' },
+			gameServers: { es: 'Servidores de videojuegos', en: 'Game servers' },
+			agentic: { es: 'Programación agéntica', en: 'Agentic programming' }
+		}
+	},
+	projects: {
+		title: { es: 'Proyectos', en: 'Projects' },
+		subtitle: {
+			es: 'Trabajo real, con usuarios reales.',
+			en: 'Real work, with real users.'
+		},
+		forum: {
+			name: { es: 'CMS-lite para foro', en: 'CMS-lite for forum' },
+			description: {
+				es: 'Un CMS ligero para foros, en producción y usado activamente por una comunidad. Creado para resolver necesidades concretas de moderación, organización de contenido y gestión de usuarios.',
+				en: 'A lightweight CMS for forums, in production and actively used by a community. Built to solve concrete needs around moderation, content organization, and user management.'
+			},
+			tag: { es: 'En producción con usuarios', en: 'In production with users' }
+		},
+		moreSoon: {
+			es: 'Más proyectos en camino. Explorá mi GitHub mientras tanto.',
+			en: 'More projects on the way. Explore my GitHub in the meantime.'
+		},
+		viewCode: { es: 'Ver código', en: 'View code' }
+	},
+	contact: {
+		title: { es: 'Contacto', en: 'Contact' },
+		subtitle: {
+			es: '¿Tenés un proyecto en mente o querés trabajar juntos? Escribime.',
+			en: 'Got a project in mind or want to work together? Reach out.'
+		},
+		emailLabel: { es: 'Email', en: 'Email' },
+		githubLabel: { es: 'GitHub', en: 'GitHub' },
+		openGithub: { es: 'Abrir GitHub', en: 'Open GitHub' },
+		sendEmail: { es: 'Enviar email', en: 'Send email' }
+	},
+	footer: {
+		built: { es: 'Hecho con', en: 'Built with' },
+		rights: { es: 'Todos los derechos reservados.', en: 'All rights reserved.' }
+	}
+} as const;
+
+export type Dict = typeof dictionary;
+export type DictKey = keyof Dict;
