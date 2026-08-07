@@ -9,13 +9,15 @@ export const dictionary = {
 		about: { es: 'Sobre mí', en: 'About' },
 		stack: { es: 'Stack', en: 'Stack' },
 		projects: { es: 'Proyectos', en: 'Projects' },
-		contact: { es: 'Contacto', en: 'Contact' }
+		contact: { es: 'Contacto', en: 'Contact' },
+		cta: { es: 'Hablemos', en: 'Let\'s talk' }
 	},
 	toggle: {
 		es: { es: 'Español', en: 'Español' },
 		en: { es: 'English', en: 'English' }
 	},
 	hero: {
+		available: { es: 'Disponible para nuevos proyectos', en: 'Available for new projects' },
 		greeting: { es: 'Hola, soy', en: 'Hi, I\'m' },
 		name: { es: 'Pablo Soler', en: 'Pablo Soler' },
 		role: { es: 'Fullstack Developer', en: 'Fullstack Developer' },
@@ -27,7 +29,8 @@ export const dictionary = {
 		ctaContact: { es: 'Contáctame', en: 'Get in touch' }
 	},
 	about: {
-		title: { es: 'Sobre mí', en: 'About me' },
+		eyebrow: { es: 'Sobre mí', en: 'About' },
+		title: { es: 'El viaje del servidor a la pantalla', en: 'From server to screen' },
 		text: {
 			es: 'Desarrollador fullstack autodidacta con la costumbre de ir hasta el fondo. Construyo con JavaScript y TypeScript a lo largo de todo el stack, automatizo lo repetitivo con Python y he bajado a bajo nivel con C++ en frameworks de MMOs como TrinityCore. Ese recorrido me da una visión completa del viaje: del servidor que lo corre a la interfaz que la gente usa. Un CMS de foro que construí hoy está en producción, dando servicio a una comunidad activa.',
 			en: 'Self-taught fullstack developer with a habit of going deep. I build with JavaScript and TypeScript across the stack, automate the tedious with Python, and have gone low-level with C++ in MMO frameworks like TrinityCore. That range gives me a complete view of the journey: from the server it runs on to the interface people use. A forum CMS I built is in production today, serving an active community.'
@@ -42,6 +45,7 @@ export const dictionary = {
 		langEN: { es: 'Inglés', en: 'English' }
 	},
 	stack: {
+		eyebrow: { es: 'Stack', en: 'Stack' },
 		title: { es: 'Stack técnico', en: 'Tech stack' },
 		subtitle: {
 			es: 'Tecnologías con las que construyo, de punta a punta.',
@@ -68,6 +72,7 @@ export const dictionary = {
 		}
 	},
 	projects: {
+		eyebrow: { es: 'Proyectos', en: 'Projects' },
 		title: { es: 'Proyectos', en: 'Projects' },
 		subtitle: {
 			es: 'Trabajo real, con usuarios reales.',
@@ -88,6 +93,7 @@ export const dictionary = {
 		viewCode: { es: 'Ver código', en: 'View code' }
 	},
 	contact: {
+		eyebrow: { es: 'Contacto', en: 'Contact' },
 		title: { es: 'Contacto', en: 'Contact' },
 		subtitle: {
 			es: '¿Tenés un proyecto en mente o querés trabajar juntos? Escribime.',

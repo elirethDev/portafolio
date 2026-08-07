@@ -7,22 +7,31 @@
 </script>
 
 <section class="section container" id="projects">
-	<h2 class="section-title">{i18n.t('projects.title')}</h2>
-	<p class="section-subtitle">{i18n.t('projects.subtitle')}</p>
+	<div class="section-head">
+		<span class="section-eyebrow">{i18n.t('projects.eyebrow')}</span>
+		<h2 class="section-title">{i18n.t('projects.title')}</h2>
+		<p class="section-subtitle">{i18n.t('projects.subtitle')}</p>
+	</div>
 
 	<article class="project-card">
 		<div class="project-body">
-			<span class="badge">{i18n.t('projects.forum.tag')}</span>
+			<span class="badge">
+				<span class="badge-dot" aria-hidden="true"></span>
+				{i18n.t('projects.forum.tag')}
+			</span>
 			<h3 class="project-name">{i18n.t('projects.forum.name')}</h3>
 			<p class="muted project-desc">{i18n.t('projects.forum.description')}</p>
 			<div class="project-tags">
 				<span>TypeScript</span>
 				<span>Node.js</span>
 				<span>SQL</span>
+				<span>Prod</span>
 			</div>
-			<a class="btn btn-ghost" href={githubUrl} target="_blank" rel="noopener noreferrer">
-				{i18n.t('projects.viewCode')} →
-			</a>
+			<div class="project-actions">
+				<a class="btn btn-primary" href={githubUrl} target="_blank" rel="noopener noreferrer">
+					{i18n.t('projects.viewCode')} →
+				</a>
+			</div>
 		</div>
 	</article>
 
@@ -31,35 +40,47 @@
 
 <style>
 	.badge {
-		display: inline-block;
-		background: rgba(74, 222, 128, 0.12);
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		background: rgba(74, 222, 128, 0.1);
 		color: var(--success);
 		border: 1px solid rgba(74, 222, 128, 0.3);
-		font-size: 0.78rem;
+		font-size: 0.8rem;
 		font-weight: 600;
-		padding: 0.25rem 0.75rem;
+		padding: 0.3rem 0.9rem;
 		border-radius: 999px;
 		margin-bottom: var(--space-4);
 	}
 
+	.badge-dot {
+		width: 0.4rem;
+		height: 0.4rem;
+		border-radius: 999px;
+		background: var(--success);
+	}
+
 	.project-card {
-		background: var(--bg-card);
+		background:
+			var(--mesh),
+			var(--bg-card);
 		border: 1px solid var(--border);
-		border-radius: var(--radius-lg);
-		padding: var(--space-8);
+		border-radius: var(--radius-xl);
+		padding: clamp(var(--space-6), 5vw, var(--space-10));
 		box-shadow: var(--shadow-md);
-		max-width: 52rem;
-		transition: border-color 0.2s ease, transform 0.2s var(--ease);
+		max-width: 54rem;
+		transition: border-color 0.25s ease, transform 0.25s var(--ease);
 	}
 
 	.project-card:hover {
-		border-color: var(--accent);
+		border-color: var(--border-strong);
 		transform: translateY(-3px);
+		box-shadow: var(--shadow-lg);
 	}
 
 	.project-name {
-		font-size: 1.5rem;
-		margin-bottom: var(--space-2);
+		font-size: clamp(1.4rem, 3vw, 1.75rem);
+		margin-bottom: var(--space-3);
 	}
 
 	.project-desc {
@@ -70,7 +91,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
-		margin-bottom: var(--space-6);
+		margin-bottom: var(--space-8);
 	}
 
 	.project-tags span {
@@ -80,10 +101,15 @@
 		background: var(--bg-elevated);
 		border: 1px solid var(--border);
 		border-radius: var(--radius-sm);
-		padding: 0.25rem 0.6rem;
+		padding: 0.3rem 0.65rem;
+	}
+
+	.project-actions {
+		display: flex;
+		gap: var(--space-3);
 	}
 
 	.more {
-		margin-top: var(--space-8);
+		margin-top: var(--space-10);
 	}
 </style>

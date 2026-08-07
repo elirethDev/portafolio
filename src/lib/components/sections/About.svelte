@@ -6,7 +6,10 @@
 </script>
 
 <section class="section container" id="about">
-	<h2 class="section-title">{i18n.t('about.title')}</h2>
+	<div class="section-head">
+		<span class="section-eyebrow">{i18n.t('about.eyebrow')}</span>
+		<h2 class="section-title">{i18n.t('about.title')}</h2>
+	</div>
 
 	<div class="about-grid">
 		<div class="about-text">
@@ -27,7 +30,9 @@
 			</div>
 		</div>
 
-		<Avatar />
+		<div class="about-aside">
+			<Avatar />
+		</div>
 	</div>
 </section>
 
@@ -63,8 +68,15 @@
 	}
 
 	.lang-list {
-		margin: 0;
-		padding-left: var(--space-4);
+		list-style: none;
+		display: grid;
+		gap: var(--space-2);
 		color: var(--text-muted);
+	}
+
+	.about-aside {
+		justify-self: center;
+		width: 100%;
+		max-width: 18rem;
 	}
 </style>

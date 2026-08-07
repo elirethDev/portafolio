@@ -26,8 +26,11 @@
 </script>
 
 <section class="section container" id="stack">
-	<h2 class="section-title">{i18n.t('stack.title')}</h2>
-	<p class="section-subtitle">{i18n.t('stack.subtitle')}</p>
+	<div class="section-head">
+		<span class="section-eyebrow">{i18n.t('stack.eyebrow')}</span>
+		<h2 class="section-title">{i18n.t('stack.title')}</h2>
+		<p class="section-subtitle">{i18n.t('stack.subtitle')}</p>
+	</div>
 
 	<div class="grid">
 		{#each groups as group (group.category)}

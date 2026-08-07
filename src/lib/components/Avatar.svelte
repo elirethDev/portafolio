@@ -4,37 +4,57 @@
 </script>
 
 <div class="avatar" title="Pablo Soler">
-	<div class="avatar-photo"></div>
+	<div class="avatar-inner">
+		<span class="monogram">PS</span>
+	</div>
 </div>
 
 <style>
 	.avatar {
 		position: relative;
-		width: min(100%, 18rem);
+		width: 100%;
 		aspect-ratio: 1 / 1;
-		border-radius: var(--radius-lg);
-		overflow: hidden;
-		background:
-			linear-gradient(135deg, rgba(108, 140, 255, 0.15), rgba(108, 140, 255, 0.04)),
-			var(--bg-card);
-		border: 1px solid var(--border);
-		box-shadow: var(--shadow-md);
-		justify-self: center;
+		border-radius: var(--radius-xl);
+		padding: 2px;
+		background: var(--gradient-accent);
+		box-shadow: var(--shadow-lg);
 	}
 
-	.avatar-photo {
+	.avatar::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius-xl);
+		box-shadow: 0 0 60px rgba(109, 139, 255, 0.25);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.avatar:hover::after {
+		opacity: 1;
+	}
+
+	.avatar-inner {
 		width: 100%;
 		height: 100%;
-		/* Replace with: background-image: url('/photo.webp'); background-size: cover; background-position: center; */
+		border-radius: calc(var(--radius-xl) - 2px);
+		overflow: hidden;
+		background:
+			linear-gradient(160deg, rgba(109, 139, 255, 0.12), rgba(10, 14, 26, 0.6)),
+			var(--bg-card);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--accent);
-		font-size: 4rem;
-		font-weight: 800;
+		/* photo: background-image: url('/photo.webp'); background-size: cover; background-position: center; */
 	}
 
-	.avatar-photo::after {
-		content: 'PS';
+	.monogram {
+		font-family: var(--font-mono);
+		font-size: clamp(3rem, 10vw, 4.5rem);
+		font-weight: 800;
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 </style>

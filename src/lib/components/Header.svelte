@@ -27,7 +27,10 @@
 
 <header class="header" class:scrolled>
 	<nav class="container nav" aria-label="Main">
-		<a href="#top" class="brand">Pablo<span class="brand-dot">.</span></a>
+		<a href="#top" class="brand">
+			<span class="brand-bracket" aria-hidden="true">&lt;/&gt;</span>
+			<span>pablo.dev</span>
+		</a>
 
 		<div class="links">
 			<a href="#about">{i18n.t('nav.about')}</a>
@@ -36,17 +39,22 @@
 			<a href="#contact">{i18n.t('nav.contact')}</a>
 		</div>
 
-		<div class="lang" role="group" aria-label="Language">
-			{#each locales as l (l)}
-				<button
-					class="lang-btn"
-					class:active={i18n.locale === l}
-					aria-pressed={i18n.locale === l}
-					onclick={() => setLanguage(l)}
-				>
-					{i18n.t(`toggle.${l}`)}
-				</button>
-			{/each}
+		<div class="right">
+			<div class="lang" role="group" aria-label="Language">
+				{#each locales as l (l)}
+					<button
+						class="lang-btn"
+						class:active={i18n.locale === l}
+						aria-pressed={i18n.locale === l}
+						onclick={() => setLanguage(l)}
+					>
+						{i18n.t(`toggle.${l}`)}
+					</button>
+				{/each}
+			</div>
+			<a class="btn btn-primary nav-cta" href="#contact">
+				{i18n.t('nav.cta')}
+			</a>
 		</div>
 	</nav>
 </header>
@@ -57,13 +65,15 @@
 		inset-inline: 0;
 		top: 0;
 		z-index: 50;
-		background: transparent;
-		transition: background 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease;
+		transition: background 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease,
+			border-color 0.2s ease;
+		border-bottom: 1px solid transparent;
 	}
 
 	.header.scrolled {
-		background: rgba(11, 16, 32, 0.8);
-		backdrop-filter: blur(10px);
+		background: rgba(10, 14, 26, 0.72);
+		backdrop-filter: blur(12px);
+		border-bottom-color: var(--border);
 		box-shadow: var(--shadow-sm);
 	}
 
@@ -72,17 +82,20 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-4);
-		height: 4rem;
+		height: 4.25rem;
 	}
 
 	.brand {
-		font-size: 1.25rem;
-		font-weight: 800;
-		letter-spacing: -0.02em;
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		font-family: var(--font-mono);
+		font-weight: 700;
+		font-size: 1.05rem;
 		color: var(--text);
 	}
 
-	.brand-dot {
+	.brand-bracket {
 		color: var(--accent);
 	}
 
@@ -95,10 +108,32 @@
 		color: var(--text-muted);
 		font-weight: 500;
 		font-size: 0.95rem;
+		position: relative;
 	}
 
 	.links a:hover {
 		color: var(--text);
+	}
+
+	.links a::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -4px;
+		width: 0;
+		height: 2px;
+		background: var(--accent);
+		transition: width 0.2s var(--ease);
+	}
+
+	.links a:hover::after {
+		width: 100%;
+	}
+
+	.right {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
 	}
 
 	.lang {
@@ -132,8 +167,16 @@
 		color: var(--accent-contrast);
 	}
 
-	@media (max-width: 36rem) {
+	.nav-cta {
+		padding: 0.55rem 1.1rem;
+		font-size: 0.88rem;
+	}
+
+	@media (max-width: 40rem) {
 		.links {
+			display: none;
+		}
+		.nav-cta {
 			display: none;
 		}
 	}
