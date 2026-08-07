@@ -1,13 +1,17 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import { untrack } from 'svelte';
 	import { createI18n, setI18nContext } from '$lib/i18n/i18n.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
 	let { children, data } = $props();
 
-	const i18n = createI18n(data.locale);
+	// `untrack` reads the initial server locale without subscribing to reactivity:
+	// from here on the language toggle owns the reactive state.
+	const locale = untrack(() => data.locale);
+	const i18n = createI18n(locale);
 	setI18nContext(i18n);
 </script>
 

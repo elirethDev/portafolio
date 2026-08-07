@@ -1,5 +1,5 @@
 import { getContext, setContext } from 'svelte';
-import { dictionary, type DictKey } from './dictionary';
+import { dictionary } from './dictionary';
 import type { Locale } from './locales';
 
 const CONTEXT_KEY = 'i18n';
@@ -16,13 +16,20 @@ export function createI18n(initialLocale: Locale) {
 	}
 
 	function translate(flatKey: string): string {
-		// flatKey is a dotted path like "hero.tagline"
-		const [group, key] = flatKey.split('.');
-		const groupDict = dictionary[group as DictKey];
-		if (!groupDict) return flatKey;
-		const entry = (groupDict as Record<string, Record<Locale, string>>)[key];
-		if (!entry) return flatKey;
-		return entry[locale];
+		// Navigate the dotted path (e.g. "stack.categories.languages") through
+		// the dictionary tree and return the entry for the current locale.
+		let node: unknown = dictionary;
+		for (const segment of flatKey.split('.')) {
+			if (node && typeof node === 'object' && segment in (node as Record<string, unknown>)) {
+				node = (node as Record<string, unknown>)[segment];
+			} else {
+				return flatKey;
+			}
+		}
+		if (node && typeof node === 'object' && locale in (node as Record<string, unknown>)) {
+			return String((node as Record<string, unknown>)[locale]);
+		}
+		return flatKey;
 	}
 
 	return {
