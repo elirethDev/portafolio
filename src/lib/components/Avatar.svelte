@@ -1,11 +1,11 @@
 <script lang="ts">
-	// Placeholder avatar. Replace `photo` with `/photo.webp` (static/photo.webp)
-	// when Pablo provides his picture. Keeps a clean fallback meanwhile.
+	// Pablo's photo, served as an optimized WebP from /static.
+	const photo = '/photo.webp';
 </script>
 
 <div class="avatar" title="Pablo Soler">
 	<div class="avatar-inner">
-		<span class="monogram">PS</span>
+		<img class="photo" src={photo} alt="Pablo Soler" width="798" height="800" />
 	</div>
 </div>
 
@@ -39,22 +39,13 @@
 		height: 100%;
 		border-radius: calc(var(--radius-xl) - 2px);
 		overflow: hidden;
-		background:
-			linear-gradient(160deg, rgba(109, 139, 255, 0.12), rgba(10, 14, 26, 0.6)),
-			var(--bg-card);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		/* photo: background-image: url('/photo.webp'); background-size: cover; background-position: center; */
+		background: var(--bg-card);
 	}
 
-	.monogram {
-		font-family: var(--font-mono);
-		font-size: clamp(3rem, 10vw, 4.5rem);
-		font-weight: 800;
-		background: var(--gradient-accent);
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
+	.photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 </style>
