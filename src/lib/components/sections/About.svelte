@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { I18n } from '$lib/i18n/i18n.svelte';
 	import Avatar from '../Avatar.svelte';
+	import { reveal } from '$lib/actions/reveal.svelte';
 
 	let { i18n }: { i18n: I18n } = $props();
 </script>
 
-<section class="section container" id="about">
+<section class="section container" id="about" use:reveal>
 	<div class="section-head">
 		<span class="section-eyebrow">{i18n.t('about.eyebrow')}</span>
 		<h2 class="section-title">{i18n.t('about.title')}</h2>

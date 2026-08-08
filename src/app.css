@@ -7,6 +7,9 @@
 @import '@fontsource-variable/jetbrains-mono';
 
 :root {
+	color-scheme: dark;
+	accent-color: var(--accent);
+
 	/* Palette (dark, modern, tech) */
 	--bg: #0a0e1a;
 	--bg-elevated: #10152a;
@@ -270,4 +273,32 @@ ul {
 	.section {
 		padding-block: var(--space-20);
 	}
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scrollbar (WebKit + Firefox)                                       */
+/* ------------------------------------------------------------------ */
+
+html {
+	scrollbar-width: thin;
+	scrollbar-color: var(--border-strong) var(--bg);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--border-strong);
+	border-radius: 999px;
+	border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
 }

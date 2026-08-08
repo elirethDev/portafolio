@@ -6,9 +6,10 @@
 	const githubUrl = 'https://github.com/elirethDev';
 
 	const snippet = `const soler = {
-  role: 'Fullstack Dev',
-  stack: ['TS', 'Go', 'Python'],
-  build: 'server → screen',
+  role: 'Fullstack Engineer',
+  stack: ['TS', 'Go', 'Python', 'C++'],
+  ops: ['Docker', 'K8s', 'CI/CD'],
+  cloud: 'Cloudflare Edge',
   shipping: true
 };`;
 </script>
@@ -153,6 +154,10 @@
 	.name {
 		font-size: clamp(2.5rem, 7vw, 4.5rem);
 		letter-spacing: -0.03em;
+		background: var(--gradient-text);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 
 	.role {
