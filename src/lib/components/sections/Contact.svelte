@@ -3,8 +3,35 @@
 
 	let { i18n }: { i18n: I18n } = $props();
 
-	const email = 'pablosolerjs@gmail.com';
 	const githubUrl = 'https://github.com/elirethDev';
+
+	let name = $state('');
+	let senderEmail = $state('');
+	let message = $state('');
+	let website = $state(''); // honeypot field: bots fill it, humans don't see it
+	let status = $state<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+	async function handleSubmit(event: SubmitEvent) {
+		event.preventDefault();
+		if (status === 'sending') return;
+
+		const data = new FormData();
+		data.set('name', name);
+		data.set('email', senderEmail);
+		data.set('message', message);
+		data.set('website', website);
+
+		status = 'sending';
+		try {
+			const res = await fetch('/api/contact', { method: 'POST', body: data });
+			status = res.ok ? 'success' : 'error';
+			if (res.ok) {
+				name = senderEmail = message = '';
+			}
+		} catch {
+			status = 'error';
+		}
+	}
 </script>
 
 <section class="section container" id="contact">
@@ -14,28 +41,64 @@
 		<p class="section-subtitle">{i18n.t('contact.subtitle')}</p>
 	</div>
 
-	<div class="contact-links">
-		<a class="contact-card" href={`mailto:${email}`}>
-			<div class="contact-top">
-				<span class="contact-label">{i18n.t('contact.emailLabel')}</span>
-				<svg
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					aria-hidden="true"
-				>
-					<rect width="20" height="16" x="2" y="4" rx="2"></rect>
-					<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-				</svg>
+	<div class="contact-grid">
+		<form class="contact-form" onsubmit={handleSubmit} novalidate>
+			{#if status === 'success'}
+				<p class="form-note success" role="status">{i18n.t('contact.success')}</p>
+			{:else if status === 'error'}
+				<p class="form-note error" role="alert">{i18n.t('contact.error')}</p>
+			{/if}
+
+			<div class="field">
+				<label for="contact-name">{i18n.t('contact.nameLabel')}</label>
+				<input
+					id="contact-name"
+					type="text"
+					name="name"
+					autocomplete="name"
+					placeholder={i18n.t('contact.namePlaceholder')}
+					bind:value={name}
+					required
+				/>
 			</div>
-			<span class="contact-value">{email}</span>
-			<span class="contact-action">{i18n.t('contact.sendEmail')} →</span>
-		</a>
+
+			<div class="field">
+				<label for="contact-email">{i18n.t('contact.emailLabel')}</label>
+				<input
+					id="contact-email"
+					type="email"
+					name="email"
+					autocomplete="email"
+					placeholder={i18n.t('contact.emailPlaceholder')}
+					bind:value={senderEmail}
+					required
+				/>
+			</div>
+
+			<div class="field">
+				<label for="contact-message">{i18n.t('contact.messageLabel')}</label>
+				<textarea
+					id="contact-message"
+					name="message"
+					rows="5"
+					placeholder={i18n.t('contact.messagePlaceholder')}
+					bind:value={message}
+					required
+				></textarea>
+			</div>
+
+			<!-- Honeypot: hidden from humans, bots auto-fill and get silently discarded -->
+			<div class="hp-field" aria-hidden="true">
+				<label for="contact-website">Website</label>
+				<input id="contact-website" type="text" name="website" tabindex="-1" autocomplete="off" bind:value={website} />
+			</div>
+
+			<button class="btn btn-primary btn-submit" type="submit" disabled={status === 'sending'}>
+				{status === 'sending' ? i18n.t('contact.sending') : i18n.t('contact.send')}
+			</button>
+
+			<p class="form-required">{i18n.t('contact.required')}</p>
+		</form>
 
 		<a
 			class="contact-card"
@@ -64,16 +127,108 @@
 </section>
 
 <style>
-	.contact-links {
+	.contact-grid {
 		display: grid;
 		gap: var(--space-6);
 		max-width: 42rem;
 	}
 
 	@media (min-width: 40rem) {
-		.contact-links {
-			grid-template-columns: 1fr 1fr;
+		.contact-grid {
+			grid-template-columns: 1.6fr 1fr;
+			align-items: start;
 		}
+	}
+
+	.contact-form {
+		display: grid;
+		gap: var(--space-4);
+		background: var(--bg-card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		padding: var(--space-6);
+	}
+
+	.field {
+		display: grid;
+		gap: var(--space-2);
+	}
+
+	.field label {
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--text-faint);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.field input,
+	.field textarea {
+		width: 100%;
+		background: var(--bg-elevated);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		color: var(--text);
+		padding: 0.7rem 0.9rem;
+		font: inherit;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.field textarea {
+		resize: vertical;
+		min-height: 8rem;
+	}
+
+	.field input:focus,
+	.field textarea:focus {
+		outline: none;
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px var(--accent-tint);
+	}
+
+	.btn-submit {
+		justify-self: start;
+		margin-top: var(--space-2);
+	}
+
+	.btn-submit:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.form-note {
+		font-size: 0.95rem;
+		padding: var(--space-3) var(--space-4);
+		border-radius: var(--radius-md);
+	}
+
+	.form-note.success {
+		background: rgba(74, 222, 128, 0.1);
+		border: 1px solid rgba(74, 222, 128, 0.3);
+		color: var(--success);
+	}
+
+	.form-note.error {
+		background: rgba(248, 113, 113, 0.1);
+		border: 1px solid rgba(248, 113, 113, 0.3);
+		color: var(--danger);
+	}
+
+	.form-required {
+		font-size: 0.8rem;
+		color: var(--text-faint);
+		margin: 0;
+	}
+
+	/* Honeypot: rendered off-screen, invisible to humans */
+	.hp-field {
+		position: absolute;
+		left: -9999px;
+		top: -9999px;
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		pointer-events: none;
 	}
 
 	.contact-card {

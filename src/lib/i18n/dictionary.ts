@@ -99,10 +99,28 @@ export const dictionary = {
 			es: '¿Tenés un proyecto en mente o querés trabajar juntos? Escribime.',
 			en: 'Got a project in mind or want to work together? Reach out.'
 		},
-		emailLabel: { es: 'Email', en: 'Email' },
+		nameLabel: { es: 'Nombre', en: 'Name' },
+		namePlaceholder: { es: 'Tu nombre', en: 'Your name' },
+		emailLabel: { es: 'Tu email', en: 'Your email' },
+		emailPlaceholder: { es: 'tu@email.com', en: 'you@email.com' },
+		messageLabel: { es: 'Mensaje', en: 'Message' },
+		messagePlaceholder: {
+			es: 'Contame sobre tu proyecto o tu propuesta...',
+			en: 'Tell me about your project or proposal...'
+		},
+		send: { es: 'Enviar mensaje', en: 'Send message' },
+		sending: { es: 'Enviando...', en: 'Sending...' },
+		success: {
+			es: '¡Gracias por escribirme! Tu mensaje fue enviado y te voy a responder.',
+			en: 'Thanks for reaching out! Your message was sent and I will get back to you.'
+		},
+		error: {
+			es: 'No se pudo enviar el mensaje. Probá de nuevo o contactame por GitHub.',
+			en: 'Could not send the message. Please try again or reach me on GitHub.'
+		},
+		required: { es: 'Todos los campos son obligatorios', en: 'All fields are required' },
 		githubLabel: { es: 'GitHub', en: 'GitHub' },
-		openGithub: { es: 'Abrir GitHub', en: 'Open GitHub' },
-		sendEmail: { es: 'Enviar email', en: 'Send email' }
+		openGithub: { es: 'Abrir GitHub', en: 'Open GitHub' }
 	},
 	footer: {
 		built: { es: 'Hecho con', en: 'Built with' },

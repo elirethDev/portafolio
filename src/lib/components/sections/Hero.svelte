@@ -4,7 +4,6 @@
 	let { i18n }: { i18n: I18n } = $props();
 
 	const githubUrl = 'https://github.com/elirethDev';
-	const email = 'pablosolerjs@gmail.com';
 
 	const snippet = `const soler = {
   role: 'Fullstack Dev',
@@ -49,7 +48,7 @@
 						/>
 					</svg>
 				</a>
-				<a class="btn-icon" href={`mailto:${email}`} aria-label="Email" title="Email">
+				<a class="btn-icon" href="#contact" aria-label="Email" title="Email">
 					<svg
 						width="20"
 						height="20"
