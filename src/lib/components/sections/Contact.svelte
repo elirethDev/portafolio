@@ -5,21 +5,83 @@
 
 	const githubUrl = 'https://github.com/elirethDev';
 
+	// Public Turnstile Site Key — designed to be exposed in the client.
+	const TURNSTILE_SITE_KEY = '0x4AAAAAAEKVF5UxwUVve8xx';
+
 	let name = $state('');
 	let senderEmail = $state('');
 	let message = $state('');
 	let website = $state(''); // honeypot field: bots fill it, humans don't see it
 	let status = $state<'idle' | 'sending' | 'success' | 'error'>('idle');
 
+	let turnstileToken = $state('');
+	let turnstileLoaded = $state(false);
+	let widgetId: number | undefined = $state();
+
+	function loadTurnstile(): Promise<void> {
+		return new Promise((resolve) => {
+			if (window.turnstile) {
+				turnstileLoaded = true;
+				resolve();
+				return;
+			}
+			const check = () => {
+				if (window.turnstile) {
+					turnstileLoaded = true;
+					resolve();
+				} else {
+					setTimeout(check, 300);
+				}
+			};
+			setTimeout(check, 200);
+		});
+	}
+
+	$effect(() => {
+		if (turnstileLoaded && !widgetId) {
+			const el = document.getElementById('turnstile-widget');
+			if (el && window.turnstile) {
+				widgetId = window.turnstile.render(el, {
+					sitekey: TURNSTILE_SITE_KEY,
+					callback: (token: string) => {
+						turnstileToken = token;
+					},
+					'expired-callback': () => {
+						turnstileToken = '';
+						if (typeof widgetId === 'number') {
+							window.turnstile?.reset(widgetId);
+						}
+					},
+					'error-callback': () => {
+						turnstileToken = '';
+					}
+				});
+			}
+		}
+	});
+
+	$effect(() => {
+		if (status === 'success' && widgetId !== undefined && window.turnstile) {
+			turnstileToken = '';
+			window.turnstile.reset(widgetId);
+		}
+	});
+
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
 		if (status === 'sending') return;
+
+		if (!turnstileToken) {
+			status = 'error';
+			return;
+		}
 
 		const data = new FormData();
 		data.set('name', name);
 		data.set('email', senderEmail);
 		data.set('message', message);
 		data.set('website', website);
+		data.set('cf-turnstile-response', turnstileToken);
 
 		status = 'sending';
 		try {
@@ -92,6 +154,9 @@
 				<label for="contact-website">Website</label>
 				<input id="contact-website" type="text" name="website" tabindex="-1" autocomplete="off" bind:value={website} />
 			</div>
+
+			<!-- Cloudflare Turnstile: proves a human is submitting (anti-bot) -->
+			<div id="turnstile-widget" class="turnstile-wrap"></div>
 
 			<button class="btn btn-primary btn-submit" type="submit" disabled={status === 'sending'}>
 				{status === 'sending' ? i18n.t('contact.sending') : i18n.t('contact.send')}
@@ -218,6 +283,10 @@
 		font-size: 0.8rem;
 		color: var(--text-faint);
 		margin: 0;
+	}
+
+	.turnstile-wrap {
+		min-height: 65px;
 	}
 
 	/* Honeypot: rendered off-screen, invisible to humans */
