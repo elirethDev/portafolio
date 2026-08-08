@@ -66,7 +66,13 @@ export const dictionary = {
 			svelte: { es: 'Svelte / SvelteKit', en: 'Svelte / SvelteKit' },
 			htmlcss: { es: 'HTML / CSS', en: 'HTML / CSS' },
 			node: { es: 'Node.js', en: 'Node.js' },
+			sql: { es: 'SQL (PostgreSQL / MySQL)', en: 'SQL (PostgreSQL / MySQL)' },
 			docker: { es: 'Docker', en: 'Docker' },
+			dockerCompose: { es: 'Docker Compose', en: 'Docker Compose' },
+			nginx: { es: 'Nginx', en: 'Nginx' },
+			kubernetes: { es: 'Kubernetes', en: 'Kubernetes' },
+			ciCd: { es: 'CI/CD y GitHub Actions', en: 'CI/CD & GitHub Actions' },
+			cloud: { es: 'Cloud y Edge (Cloudflare)', en: 'Cloud & Edge (Cloudflare)' },
 			linux: { es: 'Linux y administración de servidores', en: 'Linux & server administration' },
 			gameServers: { es: 'Servidores de videojuegos', en: 'Game servers' },
 			agentic: { es: 'Programación agéntica', en: 'Agentic programming' }

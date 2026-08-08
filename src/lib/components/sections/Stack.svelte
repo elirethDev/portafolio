@@ -16,11 +16,20 @@
 		},
 		{
 			category: i18n.t('stack.categories.backend'),
-			items: ['node', 'agentic'].map((k) => i18n.t(`stack.items.${k}`))
+			items: ['node', 'sql', 'agentic'].map((k) => i18n.t(`stack.items.${k}`))
 		},
 		{
 			category: i18n.t('stack.categories.devops'),
-			items: ['docker', 'linux', 'gameServers'].map((k) => i18n.t(`stack.items.${k}`))
+			items: [
+				'docker',
+				'dockerCompose',
+				'nginx',
+				'kubernetes',
+				'ciCd',
+				'cloud',
+				'linux',
+				'gameServers'
+			].map((k) => i18n.t(`stack.items.${k}`))
 		}
 	]);
 </script>
