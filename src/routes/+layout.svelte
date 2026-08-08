@@ -17,27 +17,27 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Pablo Soler — Fullstack Developer</title>
-	<meta name="description" content="Fullstack developer building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit." />
+	<title>Pablo Soler — Fullstack Engineer</title>
+	<meta name="description" content="Fullstack engineer building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare." />
 	<meta name="author" content="Pablo Soler" />
 	<meta name="theme-color" content="#0a0e1a" />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="Pablo Soler — Fullstack Developer" />
-	<meta property="og:title" content="Pablo Soler — Fullstack Developer" />
+	<meta property="og:site_name" content="Pablo Soler — Fullstack Engineer" />
+	<meta property="og:title" content="Pablo Soler — Fullstack Engineer" />
 	<meta
 		property="og:description"
-		content="Building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit."
+		content="Building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare."
 	/>
 	<meta property="og:url" content="https://pablosoler.pages.dev/" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="Pablo Soler — Fullstack Developer" />
+	<meta name="twitter:title" content="Pablo Soler — Fullstack Engineer" />
 	<meta
 		name="twitter:description"
-		content="Building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit."
+		content="Building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare."
 	/>
 </svelte:head>
 

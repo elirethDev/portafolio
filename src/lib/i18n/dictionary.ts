@@ -20,10 +20,10 @@ export const dictionary = {
 		available: { es: 'Disponible para nuevos proyectos', en: 'Available for new projects' },
 		greeting: { es: 'Hola, soy', en: 'Hi, I\'m' },
 		name: { es: 'Pablo Soler', en: 'Pablo Soler' },
-		role: { es: 'Fullstack Developer', en: 'Fullstack Developer' },
+		role: { es: 'Fullstack Engineer', en: 'Fullstack Engineer' },
 		tagline: {
-			es: 'Construyo productos del servidor a la pantalla.',
-			en: 'Building products from server to screen.'
+			es: 'Construyo productos del kernel a la nube.',
+			en: 'Building products from kernel to cloud.'
 		},
 		ctaProjects: { es: 'Ver mis proyectos', en: 'See my projects' },
 		ctaContact: { es: 'Contáctame', en: 'Get in touch' }
@@ -32,8 +32,8 @@ export const dictionary = {
 		eyebrow: { es: 'Sobre mí', en: 'About' },
 		title: { es: 'El viaje del servidor a la pantalla', en: 'From server to screen' },
 		text: {
-			es: 'Desarrollador fullstack autodidacta con la costumbre de ir hasta el fondo. Construyo con JavaScript y TypeScript a lo largo de todo el stack, automatizo lo repetitivo con Python y he bajado a bajo nivel con C++ en frameworks de MMOs como TrinityCore. Ese recorrido me da una visión completa del viaje: del servidor que lo corre a la interfaz que la gente usa. Un CMS de foro que construí hoy está en producción, dando servicio a una comunidad activa.',
-			en: 'Self-taught fullstack developer with a habit of going deep. I build with JavaScript and TypeScript across the stack, automate the tedious with Python, and have gone low-level with C++ in MMO frameworks like TrinityCore. That range gives me a complete view of the journey: from the server it runs on to the interface people use. A forum CMS I built is in production today, serving an active community.'
+			es: 'Fullstack que entiende la pila completa porque la ha vivido de punta a punta: C++ a bajo nivel en frameworks de MMOs, automatización con Python, y productos en producción con JavaScript/TypeScript, Docker y Cloudflare. Construyo sistemas que no se caen cuando crecen.',
+			en: 'Fullstack engineer who understands the entire stack because I have lived it end to end: low-level C++ in MMO frameworks, automation with Python, and products in production with JavaScript/TypeScript, Docker, and Cloudflare. I build systems that don\'t fall over as they grow.'
 		},
 		education: { es: 'Formación', en: 'Education' },
 		educationText: {
