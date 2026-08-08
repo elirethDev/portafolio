@@ -66,6 +66,7 @@ export const dictionary = {
 			svelte: { es: 'Svelte / SvelteKit', en: 'Svelte / SvelteKit' },
 			htmlcss: { es: 'HTML / CSS', en: 'HTML / CSS' },
 			node: { es: 'Node.js', en: 'Node.js' },
+			docker: { es: 'Docker', en: 'Docker' },
 			linux: { es: 'Linux y administración de servidores', en: 'Linux & server administration' },
 			gameServers: { es: 'Servidores de videojuegos', en: 'Game servers' },
 			agentic: { es: 'Programación agéntica', en: 'Agentic programming' }

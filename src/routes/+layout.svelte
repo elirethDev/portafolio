@@ -18,11 +18,27 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<title>Pablo Soler — Fullstack Developer</title>
+	<meta name="description" content="Fullstack developer building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit." />
+	<meta name="author" content="Pablo Soler" />
+	<meta name="theme-color" content="#0a0e1a" />
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Pablo Soler — Fullstack Developer" />
+	<meta property="og:title" content="Pablo Soler — Fullstack Developer" />
 	<meta
-		name="description"
-		content="Fullstack developer building products from server to screen. JS/TS, Python, Go, C++."
+		property="og:description"
+		content="Building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit."
 	/>
-	<meta name="theme-color" content="#0b1020" />
+	<meta property="og:url" content="https://pablosoler.pages.dev/" />
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Pablo Soler — Fullstack Developer" />
+	<meta
+		name="twitter:description"
+		content="Building products from server to screen. JavaScript/TypeScript, Go, Python, C++, Docker, SvelteKit."
+	/>
 </svelte:head>
 
 <Header {i18n} />

@@ -20,7 +20,7 @@
 		},
 		{
 			category: i18n.t('stack.categories.devops'),
-			items: ['linux', 'gameServers'].map((k) => i18n.t(`stack.items.${k}`))
+			items: ['docker', 'linux', 'gameServers'].map((k) => i18n.t(`stack.items.${k}`))
 		}
 	]);
 </script>
