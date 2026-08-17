@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { I18n } from '$lib/i18n/i18n.svelte';
 	import { reveal } from '$lib/actions/reveal.svelte';
 
@@ -37,6 +38,10 @@
 			setTimeout(check, 200);
 		});
 	}
+
+	// Kick off the loader once the component mounts (client only).
+	// Without this, the widget would never render and the form would always fail.
+	onMount(loadTurnstile);
 
 	$effect(() => {
 		if (turnstileLoaded && !widgetId) {
