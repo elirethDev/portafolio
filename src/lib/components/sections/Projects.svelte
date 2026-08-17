@@ -14,11 +14,6 @@
 			key: 'totalRPChat',
 			tags: ['Lua', 'Project Zomboid', 'RP servers'],
 			href: 'https://github.com/elirethDev/TotalRPChat'
-		},
-		{
-			key: 'n8n',
-			tags: ['n8n', 'Automation'],
-			href: 'https://github.com/elirethDev/n8n-workflows'
 		}
 	];
 </script>
@@ -88,19 +83,13 @@
 	.projects-grid {
 		display: grid;
 		gap: var(--space-6);
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 		max-width: 68rem;
 	}
 
 	@media (min-width: 40rem) {
 		.projects-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (min-width: 64rem) {
-		.projects-grid {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
 		}
 	}
 

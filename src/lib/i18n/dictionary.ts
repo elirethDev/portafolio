@@ -101,14 +101,6 @@ export const dictionary = {
 			},
 			tag: { es: 'Mod de Project Zomboid', en: 'Project Zomboid mod' }
 		},
-		n8n: {
-			name: { es: 'n8n Workflows', en: 'n8n Workflows' },
-			description: {
-				es: 'Colección de flujos de automatización con n8n para integrar servicios, APIs y procesos.',
-				en: 'Collection of n8n automation workflows to integrate services, APIs, and processes.'
-			},
-			tag: { es: 'Automatización', en: 'Automation' }
-		},
 		moreSoon: {
 			es: 'Más proyectos en camino. Explorá mi GitHub mientras tanto.',
 			en: 'More projects on the way. Explore my GitHub in the meantime.'
