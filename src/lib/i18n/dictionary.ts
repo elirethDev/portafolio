@@ -85,13 +85,29 @@ export const dictionary = {
 			es: 'Trabajo real, con usuarios reales.',
 			en: 'Real work, with real users.'
 		},
-		forum: {
-			name: { es: 'CMS-lite para foro', en: 'CMS-lite for forum' },
+		rolErrante: {
+			name: { es: 'RolErrante CMS-lite', en: 'RolErrante CMS-lite' },
 			description: {
-				es: 'Un CMS ligero para foros, en producción y usado activamente por una comunidad. Creado para resolver necesidades concretas de moderación, organización de contenido y gestión de usuarios.',
-				en: 'A lightweight CMS for forums, in production and actively used by a community. Built to solve concrete needs around moderation, content organization, and user management.'
+				es: 'Sistema de organización de fichas e historias para comunidades de roleplay en Warcraft. En producción y usado activamente por una comunidad.',
+				en: 'Character sheet and story organization system for Warcraft roleplay communities. In production and actively used by a community.'
 			},
 			tag: { es: 'En producción con usuarios', en: 'In production with users' }
+		},
+		totalRPChat: {
+			name: { es: 'TotalRPChat', en: 'TotalRPChat' },
+			description: {
+				es: 'Rework completo del sistema de chat y radio para servidores de rol de Project Zomboid, pensado para comunidades RP.',
+				en: 'Full rework of the chat and radio system for Project Zomboid, built with roleplay servers in mind.'
+			},
+			tag: { es: 'Mod de Project Zomboid', en: 'Project Zomboid mod' }
+		},
+		n8n: {
+			name: { es: 'n8n Workflows', en: 'n8n Workflows' },
+			description: {
+				es: 'Colección de flujos de automatización con n8n para integrar servicios, APIs y procesos.',
+				en: 'Collection of n8n automation workflows to integrate services, APIs, and processes.'
+			},
+			tag: { es: 'Automatización', en: 'Automation' }
 		},
 		moreSoon: {
 			es: 'Más proyectos en camino. Explorá mi GitHub mientras tanto.',

@@ -4,7 +4,23 @@
 
 	let { i18n }: { i18n: I18n } = $props();
 
-	const githubUrl = 'https://github.com/elirethDev';
+	const projects = [
+		{
+			key: 'rolErrante',
+			tags: ['TypeScript', 'Node.js', 'SQL'],
+			href: 'https://github.com/elirethDev/RolErrante-CMS-lite'
+		},
+		{
+			key: 'totalRPChat',
+			tags: ['Lua', 'Project Zomboid', 'RP servers'],
+			href: 'https://github.com/elirethDev/TotalRPChat'
+		},
+		{
+			key: 'n8n',
+			tags: ['n8n', 'Automation'],
+			href: 'https://github.com/elirethDev/n8n-workflows'
+		}
+	];
 </script>
 
 <section class="section container" id="projects" use:reveal>
@@ -14,27 +30,35 @@
 		<p class="section-subtitle">{i18n.t('projects.subtitle')}</p>
 	</div>
 
-	<article class="project-card">
-		<div class="project-body">
-			<span class="badge">
-				<span class="badge-dot" aria-hidden="true"></span>
-				{i18n.t('projects.forum.tag')}
-			</span>
-			<h3 class="project-name">{i18n.t('projects.forum.name')}</h3>
-			<p class="muted project-desc">{i18n.t('projects.forum.description')}</p>
-			<div class="project-tags">
-				<span>TypeScript</span>
-				<span>Node.js</span>
-				<span>SQL</span>
-				<span>Prod</span>
-			</div>
-			<div class="project-actions">
-				<a class="btn btn-primary" href={githubUrl} target="_blank" rel="noopener noreferrer">
-					{i18n.t('projects.viewCode')} →
-				</a>
-			</div>
-		</div>
-	</article>
+	<div class="projects-grid">
+		{#each projects as project}
+			<article class="project-card">
+				<div class="project-body">
+					<span class="badge">
+						<span class="badge-dot" aria-hidden="true"></span>
+						{i18n.t(`projects.${project.key}.tag`)}
+					</span>
+					<h3 class="project-name">{i18n.t(`projects.${project.key}.name`)}</h3>
+					<p class="muted project-desc">{i18n.t(`projects.${project.key}.description`)}</p>
+					<div class="project-tags">
+						{#each project.tags as tag}
+							<span>{tag}</span>
+						{/each}
+					</div>
+					<div class="project-actions">
+						<a
+							class="btn btn-primary"
+							href={project.href}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{i18n.t('projects.viewCode')} →
+						</a>
+					</div>
+				</div>
+			</article>
+		{/each}
+	</div>
 
 	<p class="muted more">{i18n.t('projects.moreSoon')}</p>
 </section>
@@ -61,6 +85,25 @@
 		background: var(--success);
 	}
 
+	.projects-grid {
+		display: grid;
+		gap: var(--space-6);
+		grid-template-columns: 1fr;
+		max-width: 68rem;
+	}
+
+	@media (min-width: 40rem) {
+		.projects-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.projects-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
 	.project-card {
 		background:
 			var(--mesh),
@@ -69,7 +112,6 @@
 		border-radius: var(--radius-xl);
 		padding: clamp(var(--space-6), 5vw, var(--space-10));
 		box-shadow: var(--shadow-md);
-		max-width: 54rem;
 		transition: border-color 0.25s ease, transform 0.25s var(--ease);
 	}
 
