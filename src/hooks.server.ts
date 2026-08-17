@@ -27,10 +27,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 
 	const headers = new Headers(response.headers);
-	headers.set(
-		'Content-Security-Policy',
-		"default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'"
-	);
 	headers.set('X-Content-Type-Options', 'nosniff');
 	headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 	headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
