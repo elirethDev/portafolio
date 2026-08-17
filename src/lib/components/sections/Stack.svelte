@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { I18n } from '$lib/i18n/i18n.svelte';
+	import type { I18n, TranslationKey } from '$lib/i18n/i18n.svelte';
 	import { reveal } from '$lib/actions/reveal.svelte';
 
 	let { i18n }: { i18n: I18n } = $props();
@@ -9,15 +9,15 @@
 	const groups = $derived([
 		{
 			category: i18n.t('stack.categories.languages'),
-			items: ['typescript', 'cpp', 'go', 'python'].map((k) => i18n.t(`stack.items.${k}`))
+			items: ['typescript', 'cpp', 'go', 'python'].map((k) => i18n.t(`stack.items.${k}` as TranslationKey))
 		},
 		{
 			category: i18n.t('stack.categories.frontend'),
-			items: ['svelte', 'htmlcss'].map((k) => i18n.t(`stack.items.${k}`))
+			items: ['svelte', 'htmlcss'].map((k) => i18n.t(`stack.items.${k}` as TranslationKey))
 		},
 		{
 			category: i18n.t('stack.categories.backend'),
-			items: ['node', 'sql', 'agentic'].map((k) => i18n.t(`stack.items.${k}`))
+			items: ['node', 'sql', 'agentic'].map((k) => i18n.t(`stack.items.${k}` as TranslationKey))
 		},
 		{
 			category: i18n.t('stack.categories.devops'),
@@ -30,7 +30,7 @@
 				'cloud',
 				'linux',
 				'gameServers'
-			].map((k) => i18n.t(`stack.items.${k}`))
+			].map((k) => i18n.t(`stack.items.${k}` as TranslationKey))
 		}
 	]);
 </script>

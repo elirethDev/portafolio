@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import type { I18n } from '$lib/i18n/i18n.svelte';
 	import { reveal } from '$lib/actions/reveal.svelte';
+	import { validateContactFields } from '$lib/contact-validation';
 
 	let { i18n }: { i18n: I18n } = $props();
 
@@ -15,6 +16,10 @@
 	let message = $state('');
 	let website = $state(''); // honeypot field: bots fill it, humans don't see it
 	let status = $state<'idle' | 'sending' | 'success' | 'error'>('idle');
+	let errorCode = $state<string | null>(null);
+	let turnstileState = $state<'loading' | 'ready' | 'error'>('loading');
+	let statusElement = $state<HTMLParagraphElement | null>(null);
+	let formElement: HTMLFormElement | null = null;
 
 	let turnstileToken = $state('');
 	let turnstileLoaded = $state(false);
@@ -24,27 +29,35 @@
 		return new Promise((resolve) => {
 			if (window.turnstile) {
 				turnstileLoaded = true;
+				turnstileState = 'ready';
 				resolve();
 				return;
 			}
+			const startedAt = Date.now();
 			const check = () => {
 				if (window.turnstile) {
 					turnstileLoaded = true;
+					turnstileState = 'ready';
 					resolve();
+				} else if (Date.now() - startedAt < 8_000) {
+					window.setTimeout(check, 200);
 				} else {
-					setTimeout(check, 300);
+					turnstileState = 'error';
+					resolve();
 				}
 			};
-			setTimeout(check, 200);
+			window.setTimeout(check, 0);
 		});
 	}
 
 	// Kick off the loader once the component mounts (client only).
 	// Without this, the widget would never render and the form would always fail.
-	onMount(loadTurnstile);
+	onMount(() => {
+		void loadTurnstile();
+	});
 
 	$effect(() => {
-		if (turnstileLoaded && !widgetId) {
+		if (turnstileLoaded && widgetId === undefined) {
 			const el = document.getElementById('turnstile-widget');
 			if (el && window.turnstile) {
 				widgetId = window.turnstile.render(el, {
@@ -54,12 +67,12 @@
 					},
 					'expired-callback': () => {
 						turnstileToken = '';
-						if (typeof widgetId === 'number') {
-							window.turnstile?.reset(widgetId);
-						}
+						errorCode = 'captcha_failed';
 					},
 					'error-callback': () => {
 						turnstileToken = '';
+						turnstileState = 'error';
+						errorCode = 'captcha_failed';
 					}
 				});
 			}
@@ -77,8 +90,16 @@
 		event.preventDefault();
 		if (status === 'sending') return;
 
-		if (!turnstileToken) {
+		errorCode = null;
+		const validationError = validateContactFields({ name, email: senderEmail, message, website, token: turnstileToken });
+		if (validationError) {
 			status = 'error';
+			errorCode = validationError === 'captcha' ? 'captcha_required' : `invalid_${validationError}`;
+			if (validationError !== 'captcha') {
+				formElement?.querySelector<HTMLElement>(`[name="${validationError === 'email' ? 'email' : validationError}"]`)?.focus();
+			}
+			await tick();
+			statusElement?.focus();
 			return;
 		}
 
@@ -92,13 +113,35 @@
 		status = 'sending';
 		try {
 			const res = await fetch('/api/contact', { method: 'POST', body: data });
+			let response: { error?: string } = {};
+			try {
+				response = await res.json();
+			} catch {
+				response = {};
+			}
 			status = res.ok ? 'success' : 'error';
+			errorCode = res.ok ? null : response.error ?? 'delivery_failed';
 			if (res.ok) {
 				name = senderEmail = message = '';
 			}
 		} catch {
 			status = 'error';
+			errorCode = 'delivery_failed';
 		}
+		await tick();
+		statusElement?.focus();
+	}
+
+	function errorMessage(): string {
+		const key = errorCode === 'invalid_name' ? 'contact.invalidName'
+			: errorCode === 'invalid_email' ? 'contact.invalidEmail'
+			: errorCode === 'invalid_message' ? 'contact.invalidMessage'
+			: errorCode === 'captcha_required' ? 'contact.captchaRequired'
+			: errorCode === 'captcha_failed' || errorCode === 'captcha_unavailable' ? 'contact.captchaFailed'
+			: errorCode === 'server_not_configured' ? 'contact.serverNotConfigured'
+			: errorCode === 'request_too_large' ? 'contact.requestTooLarge'
+			: 'contact.deliveryFailed';
+		return i18n.t(key);
 	}
 </script>
 
@@ -110,11 +153,11 @@
 	</div>
 
 	<div class="contact-grid">
-		<form class="contact-form" onsubmit={handleSubmit} novalidate>
+		<form class="contact-form" bind:this={formElement} onsubmit={handleSubmit} novalidate>
 			{#if status === 'success'}
-				<p class="form-note success" role="status">{i18n.t('contact.success')}</p>
+				<p bind:this={statusElement} class="form-note success" role="status" tabindex="-1">{i18n.t('contact.success')}</p>
 			{:else if status === 'error'}
-				<p class="form-note error" role="alert">{i18n.t('contact.error')}</p>
+				<p bind:this={statusElement} class="form-note error" role="alert" tabindex="-1">{errorMessage()}</p>
 			{/if}
 
 			<div class="field">
@@ -126,6 +169,7 @@
 					autocomplete="name"
 					placeholder={i18n.t('contact.namePlaceholder')}
 					bind:value={name}
+					maxlength="100"
 					required
 				/>
 			</div>
@@ -139,6 +183,7 @@
 					autocomplete="email"
 					placeholder={i18n.t('contact.emailPlaceholder')}
 					bind:value={senderEmail}
+					maxlength="254"
 					required
 				/>
 			</div>
@@ -151,6 +196,7 @@
 					rows="5"
 					placeholder={i18n.t('contact.messagePlaceholder')}
 					bind:value={message}
+					maxlength="4000"
 					required
 				></textarea>
 			</div>
@@ -163,12 +209,18 @@
 
 			<!-- Cloudflare Turnstile: proves a human is submitting (anti-bot) -->
 			<div id="turnstile-widget" class="turnstile-wrap"></div>
+			{#if turnstileState === 'loading'}
+				<p class="form-required" role="status">{i18n.t('contact.turnstileLoading')}</p>
+			{:else if turnstileState === 'error'}
+				<p class="form-note error" role="alert">{i18n.t('contact.turnstileError')}</p>
+			{/if}
 
 			<button class="btn btn-primary btn-submit" type="submit" disabled={status === 'sending'}>
 				{status === 'sending' ? i18n.t('contact.sending') : i18n.t('contact.send')}
 			</button>
 
 			<p class="form-required">{i18n.t('contact.required')}</p>
+			<p class="privacy-note">{i18n.t('contact.privacy')}</p>
 		</form>
 
 		<a
@@ -289,6 +341,12 @@
 		font-size: 0.8rem;
 		color: var(--text-faint);
 		margin: 0;
+	}
+
+	.privacy-note {
+		font-size: 0.75rem;
+		line-height: 1.5;
+		color: var(--text-faint);
 	}
 
 	.turnstile-wrap {

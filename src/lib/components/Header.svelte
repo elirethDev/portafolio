@@ -6,6 +6,16 @@
 	let { i18n }: { i18n: I18n } = $props();
 
 	let scrolled = $state(false);
+	let menuOpen = $state(false);
+	let activeSection = $state('top');
+	let menuButton: HTMLButtonElement | null = null;
+
+	const navItems = [
+		{ id: 'about', key: 'nav.about' as const },
+		{ id: 'stack', key: 'nav.stack' as const },
+		{ id: 'projects', key: 'nav.projects' as const },
+		{ id: 'contact', key: 'nav.contact' as const }
+	];
 
 	function onscroll() {
 		scrolled = window.scrollY > 8;
@@ -14,7 +24,40 @@
 	$effect(() => {
 		onscroll();
 		window.addEventListener('scroll', onscroll, { passive: true });
-		return () => window.removeEventListener('scroll', onscroll);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const visible = entries.find((entry) => entry.isIntersecting);
+				if (visible) activeSection = visible.target.id;
+			},
+			{ rootMargin: '-30% 0px -60% 0px' }
+		);
+		for (const item of navItems) {
+			const section = document.getElementById(item.id);
+			if (section) observer.observe(section);
+		}
+		return () => {
+			window.removeEventListener('scroll', onscroll);
+			observer.disconnect();
+		};
+	});
+
+	function closeMenu(focusButton = true) {
+		menuOpen = false;
+		if (focusButton) menuButton?.focus();
+	}
+
+	function toggleMenu() {
+		menuOpen = !menuOpen;
+		if (menuOpen) requestAnimationFrame(() => document.querySelector<HTMLAnchorElement>('#primary-navigation a')?.focus());
+	}
+
+	function onKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && menuOpen) closeMenu();
+	}
+
+	$effect(() => {
+		document.addEventListener('keydown', onKeydown);
+		return () => document.removeEventListener('keydown', onKeydown);
 	});
 
 	function setLanguage(locale: Locale) {
@@ -27,16 +70,19 @@
 
 <header class="header" class:scrolled>
 	<nav class="container nav" aria-label="Main">
-		<a href="#top" class="brand">
+		<a href="#top" class="brand" onclick={() => closeMenu(false)}>
 			<span class="brand-bracket" aria-hidden="true">&lt;/&gt;</span>
 			<span>pablo.dev</span>
 		</a>
 
-		<div class="links">
-			<a href="#about">{i18n.t('nav.about')}</a>
-			<a href="#stack">{i18n.t('nav.stack')}</a>
-			<a href="#projects">{i18n.t('nav.projects')}</a>
-			<a href="#contact">{i18n.t('nav.contact')}</a>
+		<div id="primary-navigation" class="links" class:open={menuOpen}>
+			{#each navItems as item, index (item.id)}
+				<a
+					href={`#${item.id}`}
+					aria-current={activeSection === item.id ? 'location' : undefined}
+					onclick={() => closeMenu(false)}
+				>{i18n.t(item.key)}</a>
+			{/each}
 		</div>
 
 		<div class="right">
@@ -52,9 +98,20 @@
 					</button>
 				{/each}
 			</div>
-			<a class="btn btn-primary nav-cta" href="#contact">
+			<a class="btn btn-primary nav-cta" href="#contact" onclick={() => closeMenu(false)}>
 				{i18n.t('nav.cta')}
 			</a>
+			<button
+				class="menu-toggle"
+				bind:this={menuButton}
+				type="button"
+				aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+				aria-expanded={menuOpen}
+				aria-controls="primary-navigation"
+				onclick={toggleMenu}
+			>
+				<span aria-hidden="true">{menuOpen ? 'X' : 'Menu'}</span>
+			</button>
 		</div>
 	</nav>
 </header>
@@ -83,6 +140,7 @@
 		justify-content: space-between;
 		gap: var(--space-4);
 		height: 4.25rem;
+		position: relative;
 	}
 
 	.brand {
@@ -172,10 +230,49 @@
 		font-size: 0.88rem;
 	}
 
+	.menu-toggle {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 0.45rem 0.7rem;
+		background: var(--bg-elevated);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		color: var(--text);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
 	@media (max-width: 40rem) {
+		.menu-toggle {
+			display: inline-flex;
+		}
+
 		.links {
 			display: none;
 		}
+
+		.links.open {
+			display: flex;
+			position: absolute;
+			inset-inline: var(--space-6);
+			top: calc(100% + var(--space-2));
+			z-index: 60;
+			flex-direction: column;
+			gap: 0;
+			padding: var(--space-2);
+			background: var(--bg-elevated);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-md);
+			box-shadow: var(--shadow-md);
+		}
+
+		.links.open a {
+			padding: var(--space-3) var(--space-2);
+		}
+
 		.nav-cta {
 			display: none;
 		}

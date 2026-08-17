@@ -25,6 +25,8 @@
 	--accent-dim: rgba(109, 139, 255, 0.12);
 	--accent-contrast: #ffffff;
 	--success: #4ade80;
+	--danger: #f87171;
+	--accent-tint: rgba(109, 139, 255, 0.28);
 
 	/* Gradients */
 	--gradient-accent: linear-gradient(135deg, #6d8bff 0%, #a06bff 100%);
@@ -186,6 +188,31 @@ ul {
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+.skip-link {
+	position: fixed;
+	left: var(--space-4);
+	top: var(--space-4);
+	z-index: 100;
+	transform: translateY(-200%);
+	background: var(--bg-elevated);
+	color: var(--text);
+	border: 2px solid var(--accent);
+	border-radius: var(--radius-sm);
+	padding: var(--space-2) var(--space-3);
+}
+
+.skip-link:focus {
+	transform: translateY(0);
+}
+
+@media (forced-colors: active) {
+	.section-title {
+		background: none;
+		color: CanvasText;
+		-webkit-text-fill-color: currentColor;
+	}
 }
 
 .section-subtitle {

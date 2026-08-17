@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { I18n } from '$lib/i18n/i18n.svelte';
+	import type { I18n, TranslationKey } from '$lib/i18n/i18n.svelte';
 	import { reveal } from '$lib/actions/reveal.svelte';
 
 	let { i18n }: { i18n: I18n } = $props();
@@ -31,10 +31,10 @@
 				<div class="project-body">
 					<span class="badge">
 						<span class="badge-dot" aria-hidden="true"></span>
-						{i18n.t(`projects.${project.key}.tag`)}
+						{i18n.t(`projects.${project.key}.tag` as TranslationKey)}
 					</span>
-					<h3 class="project-name">{i18n.t(`projects.${project.key}.name`)}</h3>
-					<p class="muted project-desc">{i18n.t(`projects.${project.key}.description`)}</p>
+					<h3 class="project-name">{i18n.t(`projects.${project.key}.name` as TranslationKey)}</h3>
+					<p class="muted project-desc">{i18n.t(`projects.${project.key}.description` as TranslationKey)}</p>
 					<div class="project-tags">
 						{#each project.tags as tag}
 							<span>{tag}</span>

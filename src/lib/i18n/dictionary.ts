@@ -5,6 +5,13 @@ import type { Locale } from './locales';
  * Add new keys here first, then translate in both locales.
  */
 export const dictionary = {
+	seo: {
+		title: { es: 'Pablo Soler — Ingeniero Fullstack', en: 'Pablo Soler — Fullstack Engineer' },
+		description: {
+			es: 'Ingeniero fullstack que construye productos del kernel a la nube con JavaScript, TypeScript, Go, Python, Docker y Cloudflare.',
+			en: 'Fullstack engineer building products from kernel to cloud with JavaScript, TypeScript, Go, Python, Docker, and Cloudflare.'
+		}
+	},
 	nav: {
 		about: { es: 'Sobre mí', en: 'About' },
 		stack: { es: 'Stack', en: 'Stack' },
@@ -135,7 +142,21 @@ export const dictionary = {
 		},
 		required: { es: 'Todos los campos son obligatorios', en: 'All fields are required' },
 		githubLabel: { es: 'GitHub', en: 'GitHub' },
-		openGithub: { es: 'Abrir GitHub', en: 'Open GitHub' }
+		openGithub: { es: 'Abrir GitHub', en: 'Open GitHub' },
+		privacy: {
+			es: 'Este formulario usa Cloudflare Turnstile para prevenir spam y FormSubmit para entregar el mensaje. Se procesan tu nombre, email y mensaje únicamente para responderte.',
+			en: 'This form uses Cloudflare Turnstile to prevent spam and FormSubmit to deliver your message. Your name, email, and message are processed only to reply to you.'
+		},
+		turnstileLoading: { es: 'Cargando verificación anti-spam…', en: 'Loading spam protection…' },
+		turnstileError: { es: 'No se pudo cargar la verificación. Recargá la página e intentá de nuevo.', en: 'Spam protection could not load. Reload the page and try again.' },
+		captchaRequired: { es: 'Completá la verificación anti-spam antes de enviar.', en: 'Complete the spam protection check before sending.' },
+		invalidName: { es: 'Ingresá tu nombre.', en: 'Enter your name.' },
+		invalidEmail: { es: 'Ingresá un email válido.', en: 'Enter a valid email address.' },
+		invalidMessage: { es: 'Escribí un mensaje de hasta 4000 caracteres.', en: 'Write a message of up to 4000 characters.' },
+		serverNotConfigured: { es: 'El formulario no está disponible ahora. Contactame por GitHub.', en: 'The form is not available right now. Please reach me on GitHub.' },
+		captchaFailed: { es: 'La verificación expiró. Completala de nuevo.', en: 'The verification expired. Complete it again.' },
+		deliveryFailed: { es: 'No se pudo entregar el mensaje. Probá de nuevo más tarde.', en: 'The message could not be delivered. Please try again later.' },
+		requestTooLarge: { es: 'El mensaje supera el límite permitido.', en: 'The message exceeds the allowed limit.' }
 	},
 	footer: {
 		built: { es: 'Hecho con', en: 'Built with' },

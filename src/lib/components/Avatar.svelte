@@ -5,7 +5,7 @@
 
 <div class="avatar" title="Pablo Soler">
 	<div class="avatar-inner">
-		<img class="photo" src={photo} alt="Pablo Soler" width="798" height="800" />
+		<img class="photo" src={photo} alt="Pablo Soler" width="798" height="800" loading="lazy" decoding="async" />
 	</div>
 </div>
 

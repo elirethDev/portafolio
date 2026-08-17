@@ -1,6 +1,7 @@
 import { getContext, setContext } from 'svelte';
 import { dictionary } from './dictionary';
 import type { Locale } from './locales';
+import type { Dict } from './dictionary';
 
 const CONTEXT_KEY = 'i18n';
 
@@ -15,7 +16,7 @@ export function createI18n(initialLocale: Locale) {
 		locale = next;
 	}
 
-	function translate(flatKey: string): string {
+	function translate(flatKey: TranslationKey): string {
 		// Navigate the dotted path (e.g. "stack.categories.languages") through
 		// the dictionary tree and return the entry for the current locale.
 		let node: unknown = dictionary;
@@ -42,6 +43,15 @@ export function createI18n(initialLocale: Locale) {
 }
 
 export type I18n = ReturnType<typeof createI18n>;
+
+type TranslationLeaf = Record<Locale, string>;
+export type TranslationKey<T = Dict, Prefix extends string = ''> = {
+	[K in keyof T & string]: T[K] extends TranslationLeaf
+		? `${Prefix}${K}`
+		: T[K] extends object
+			? TranslationKey<T[K], `${Prefix}${K}.`>
+			: never;
+}[keyof T & string];
 
 export function setI18nContext(i18n: I18n) {
 	setContext(CONTEXT_KEY, i18n);

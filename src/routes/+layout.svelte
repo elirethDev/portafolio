@@ -17,33 +17,30 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Pablo Soler — Fullstack Engineer</title>
-	<meta name="description" content="Fullstack engineer building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare." />
+	<title>{i18n.t('seo.title')}</title>
+	<meta name="description" content={i18n.t('seo.description')} />
 	<meta name="author" content="Pablo Soler" />
 	<meta name="theme-color" content="#0a0e1a" />
+	<link rel="canonical" href={`${data.origin}/`} />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="Pablo Soler — Fullstack Engineer" />
-	<meta property="og:title" content="Pablo Soler — Fullstack Engineer" />
-	<meta
-		property="og:description"
-		content="Building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare."
-	/>
-	<meta property="og:url" content="https://pablosoler.pages.dev/" />
+	<meta property="og:site_name" content={i18n.t('seo.title')} />
+	<meta property="og:title" content={i18n.t('seo.title')} />
+	<meta property="og:description" content={i18n.t('seo.description')} />
+	<meta property="og:url" content={`${data.origin}/`} />
+	<meta property="og:locale" content={i18n.locale === 'es' ? 'es_ES' : 'en_US'} />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="Pablo Soler — Fullstack Engineer" />
-	<meta
-		name="twitter:description"
-		content="Building products from kernel to cloud. JavaScript/TypeScript, Go, Python, C++, Docker, Kubernetes, Cloudflare."
-	/>
+	<meta name="twitter:title" content={i18n.t('seo.title')} />
+	<meta name="twitter:description" content={i18n.t('seo.description')} />
 </svelte:head>
 
 <Header {i18n} />
 
-<main>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<main id="main-content" tabindex="-1">
 	{@render children()}
 </main>
 
